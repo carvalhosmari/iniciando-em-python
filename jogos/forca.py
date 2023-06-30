@@ -7,8 +7,8 @@ def jogar():
     max_tentativas = 6
     palavra = "exemplo"
     forca = []
-    acertou = acertos == len(palavra)
-    excedeu = max_tentativas == 0
+    acertou = False
+    excedeu = False
 
     for letra in palavra:
         forca.append("_ ")
@@ -26,8 +26,15 @@ def jogar():
                 if(tentativa == elem):
                     forca[index] = elem + " "
                     acertos += 1
+            if(acertos >= len(palavra)):
+                acertou = True
+                print("Parabens! Você ganhou!!!")
         else:
             max_tentativas -= 1
+
+            if(max_tentativas == 0):
+                excedeu = True
+                print("Perdeu otarioooooo!")
 
 if(__name__ == "__main__"):
     jogar()
