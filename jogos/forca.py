@@ -1,11 +1,20 @@
+import random
 def jogar():
     print("*************************")
     print("***** JOGO DE FORCA *****")
     print("*************************", end="\n\n")
 
+    palavras = []
+
+    with open("palavras.txt") as arquivo:
+        for linha in arquivo:
+            palavras.append(linha)
+
+    indice_palavra = random.randrange(0, len(palavras))
+
     acertos = 0
     max_tentativas = 6
-    palavra = "paralelepipedo"
+    palavra = palavras[indice_palavra]
     forca = []
     acertou = False
     excedeu = False
