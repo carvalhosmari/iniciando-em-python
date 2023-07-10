@@ -1,9 +1,43 @@
 import random
+
 def jogar():
+
+    acertos = 0
+    max_tentativas = 6
+    acertou = False
+    excedeu = False
+
+    imprime_abertura()
+
+    palavra = seleciona_palavra()
+    forca = retorna_forca(palavra)
+
+    while(not acertou and not excedeu):
+        imprime_forca(forca)
+
+        tentativa = recebe_tentativa(max_tentativas)
+
+        if(palavra.count(tentativa) > 0):
+            for index, elem in enumerate(palavra):
+                if(tentativa == elem):
+                    registra_acerto(forca, index, elem)
+                    acertos += 1
+        else:
+            max_tentativas -= 1
+
+        if (acertos >= len(palavra)):
+            acertou = True
+            imprime_vitoria()
+        elif(max_tentativas == 0):
+            excedeu = True
+            imprime_derrota(palavra)
+
+def imprime_abertura():
     print("*************************")
     print("***** JOGO DE FORCA *****")
     print("*************************", end="\n\n")
 
+def seleciona_palavra():
     palavras = []
 
     with open("palavras.txt") as arquivo:
@@ -11,39 +45,34 @@ def jogar():
             palavras.append(linha)
 
     indice_palavra = random.randrange(0, len(palavras))
+    palavra = palavras[indice_palavra].strip()
 
-    acertos = 0
-    max_tentativas = 6
-    palavra = palavras[indice_palavra]
-    forca = []
-    acertou = False
-    excedeu = False
+    return palavra
 
-    for caracter in range(0, len(palavra)):
-        forca.append("_ ")
+def retorna_forca(palavra_secreta):
+    forca = ["_ " for letra in palavra_secreta]
 
-    while(not acertou and not excedeu):
-        for elemento in forca:
-            print(elemento.upper(), end="")
+    return forca
 
-        print(f"\n\nVocê possui {max_tentativas} tentativas.")
+def imprime_vitoria():
+    print("Parabéns, você acertou :D")
 
-        tentativa = input("\nDigite uma letra: ").lower().strip()
+def imprime_derrota(palavra_secreta):
+    print(f"Que pena, você perdeu :(. A palavra era {palavra_secreta.upper()}")
 
-        if(palavra.count(tentativa) != 0):
-            for index, elem in enumerate(palavra):
-                if(tentativa == elem):
-                    forca[index] = elem + " "
-                    acertos += 1
-            if(acertos >= len(palavra)):
-                acertou = True
-                print("\nParabens! Você ganhou!!!")
-        else:
-            max_tentativas -= 1
+def imprime_forca(forca):
+    for elemento in forca:
+        print(elemento.upper(), end="")
 
-            if(max_tentativas == 0):
-                excedeu = True
-                print(f"\nPerdeu otarioooooo! A palavra era: {palavra}")
+def recebe_tentativa(num_tentativas):
+    print(f"\n\nVocê possui {num_tentativas} tentativas.")
+    chute = input("\nDigite uma letra: ").lower().strip()
+
+    return chute
+
+def registra_acerto(forca, indice, letra):
+    forca[indice] = letra + " "
+
 
 if(__name__ == "__main__"):
     jogar()
