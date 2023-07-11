@@ -25,6 +25,8 @@ def jogar():
         else:
             max_tentativas -= 1
 
+        desenha_forca(max_tentativas)
+
         if (acertos >= len(palavra)):
             acertou = True
             imprime_vitoria()
@@ -55,10 +57,37 @@ def retorna_forca(palavra_secreta):
     return forca
 
 def imprime_vitoria():
-    print("Parabéns, você acertou :D")
+    print(" Parabéns, você ganhou! ")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
 
 def imprime_derrota(palavra_secreta):
-    print(f"Que pena, você perdeu :(. A palavra era {palavra_secreta.upper()}")
+    print("Puxa, você foi enforcado!")
+    print("A palavra era {}".format(palavra_secreta.upper()))
+    print("    _______________        ")
+    print("   /               \       ")
+    print("  /                 \      ")
+    print("//                   \/\   ")
+    print("\|   XXXX     XXXX   | /   ")
+    print(" |   XXXX     XXXX   |/    ")
+    print(" |   XXX       XXX   |     ")
+    print(" |                   |     ")
+    print(" \__      XXX      __/     ")
+    print("   |\     XXX     /|       ")
+    print("   | |           | |       ")
+    print("   | I I I I I I I |       ")
+    print("   |  I I I I I I  |       ")
+    print("   \_             _/       ")
+    print("     \_         _/         ")
+    print("       \_______/           ")
 
 def imprime_forca(forca):
     for elemento in forca:
@@ -73,6 +102,49 @@ def recebe_tentativa(num_tentativas):
 def registra_acerto(forca, indice, letra):
     forca[indice] = letra + " "
 
+def desenha_forca(max_tentativas):
+    print("  _______     ")
+    print(" |/      |    ")
+
+    if (max_tentativas == 5):
+        print(" |      (_)   ")
+        print(" |            ")
+        print(" |            ")
+        print(" |            ")
+
+    if (max_tentativas == 4):
+        print(" |      (_)   ")
+        print(" |       |    ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if (max_tentativas == 3):
+        print(" |      (_)   ")
+        print(" |      \|    ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if (max_tentativas == 2):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if (max_tentativas == 1):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      /     ")
+
+    if (max_tentativas == 0):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      / \   ")
+
+    print(" |            ")
+    print("_|___         ")
+    print()
 
 if(__name__ == "__main__"):
     jogar()
